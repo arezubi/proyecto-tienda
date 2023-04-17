@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders index{% endblock %}
+
+{% block body %}
+    <h1>Orders index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Province</th>
+                <th>Location</th>
+                <th>Adress</th>
+                <th>Cost</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.province }}</td>
+                <td>{{ order.location }}</td>
+                <td>{{ order.adress }}</td>
+                <td>{{ order.cost }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.date ? order.date|date('Y-m-d') : '' }}</td>
+                <td>{{ order.time ? order.time|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_orders_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('app_orders_edit', {'id': order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_orders_new') }}">Create new</a>
+{% endblock %}
